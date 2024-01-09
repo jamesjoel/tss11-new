@@ -7,6 +7,7 @@ routes.use("/api/auth", (require("../controllers/AuthController")));
 routes.use("/api/user-profile", (require("../controllers/UserProfileController")));
 routes.use("/api/admin-auth", require("../controllers/AdminAuthController"));
 routes.use("/api/category", require("../controllers/CategoryController"));
+routes.use("/api/student", require("../controllers/StudentController"));
 // localhost:8080/api/category
 
 // routes.use("/about", require("../controllers/AboutController"));
