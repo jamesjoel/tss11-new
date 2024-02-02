@@ -1,14 +1,13 @@
 const routes = require("express").Router();
 const Product = require("../models/Product");
 const path = require("path");
+const uni = require("unique-string-generator");
+
 
 routes.get("/", async(req, res)=>{
     let result = await Product.find();
     res.send({ success : true, result : result });
 })
-
-
-
 
 routes.get("/:id", async(req, res)=>{
     let result = await Product.find({ _id : req.params.id });
@@ -22,9 +21,15 @@ routes.post("/", async(req, res)=>{
     let body = JSON.parse(req.body.formdata);
     let image = req.files.image;
 
-    body.image = image.name;
+    
+    let arr = image.name.split(".");
+    let ext = arr[arr.length-1];
 
-    await image.mv(path.resolve()+"/assets/product-images/"+image.name);
+    let newname = uni.UniqueString()+"."+ext;
+    
+    body.image = newname;
+
+    await image.mv(path.resolve()+"/assets/product-images/"+newname);
 
     await Product.create(body);
     res.send({ success : true });
