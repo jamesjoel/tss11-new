@@ -1,6 +1,7 @@
 const routes = require("express").Router();
 const Cate = require("../models/Category");
 const SubCate = require("../models/SubCategory");
+const Product = require("../models/Product")
 
 routes.get("/", async(req, res)=>{
     let result = await Cate.find();
@@ -23,8 +24,8 @@ routes.put("/:id", async(req, res)=>{
 })
 routes.delete("/:id", async(req, res)=>{
     let result = await Cate.find({_id : req.params.id});
-    
     let catename = result[0].name;
+    await Product.deleteMany({ category : catename });
     await SubCate.deleteMany({ category : catename });
     await Cate.deleteMany({ _id : req.params.id });
     res.send({ success : true });

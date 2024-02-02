@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const routes = require("./routes/AllRoutes");
 const cors = require("cors");
+const upload = require("express-fileupload");
 
 /*
     For going to live server
@@ -13,7 +14,7 @@ app.use(express.static(__dirname+"/assets"));
 app.use(express.static(root));
 // ********************* Live Server (end)
 
-
+app.use(upload());
 app.use(express.json());
 app.use(express.urlencoded({extended : true}));
 
