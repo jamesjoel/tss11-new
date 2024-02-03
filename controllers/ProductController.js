@@ -2,6 +2,7 @@ const routes = require("express").Router();
 const Product = require("../models/Product");
 const path = require("path");
 const uni = require("unique-string-generator");
+const fs = require("fs");
 
 
 routes.get("/", async(req, res)=>{
@@ -39,6 +40,10 @@ routes.put("/:id", async(req, res)=>{
     res.send({ success : true });
 })
 routes.delete("/:id", async(req, res)=>{
+    let result = await Product.find({_id : req.params.id});
+    let image = result[0].image;
+    let imagepath = path.resolve()+"/assets/product-images/"+image;
+    fs.unlinkSync(imagepath);
     await Product.deleteMany({ _id : req.params.id });
     res.send({ success : true });
 })
