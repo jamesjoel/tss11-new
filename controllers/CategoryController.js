@@ -19,6 +19,10 @@ routes.post("/", async(req, res)=>{
     res.send({ success : true });
 })
 routes.put("/:id", async(req, res)=>{
+    let result = await Cate.find({_id : req.params.id});
+    let catename = result[0].name;
+    await Product.updateMany({ category : catename }, {category : req.body.name});
+    await SubCate.updateMany({ category : catename }, {category : req.body.name});
     await Cate.updateMany({ _id : req.params.id }, req.body);
     res.send({ success : true });
 })

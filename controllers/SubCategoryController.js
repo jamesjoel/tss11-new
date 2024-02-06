@@ -28,6 +28,9 @@ routes.post("/", async(req, res)=>{
     res.send({ success : true });
 })
 routes.put("/:id", async(req, res)=>{
+    let result = await SubCategory.find({_id : req.params.id});
+    let subcatename = result[0].name;
+    await Product.updateMany({subcategory : subcatename}, {subcategory : req.body.name});
     await SubCategory.updateMany({ _id : req.params.id }, req.body);
     res.send({ success : true });
 })
