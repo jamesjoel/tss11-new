@@ -10,10 +10,16 @@ routes.post("/", async(req, res)=>{
     {
         if(result[0].password == sha1(password))
         {
-            let obj = { _id : result[0]._id };
-            let token = jwt.sign(obj, "the stepping stone");
-            
-            res.send({success : true, token : token});
+            if(result[0].status == 1)
+            {
+
+                let obj = { _id : result[0]._id };
+                let token = jwt.sign(obj, "the stepping stone");
+                
+                res.send({success : true, token : token});
+            }else{
+                res.send({success : false, type : 3})
+            }
             
         }else{
             

@@ -9,7 +9,8 @@ const UserSchema = mongoose.Schema({
     address : String,
     gender : String,
     state : String,
-    city : String
+    city : String,
+    status : { type : Number, default : 1}
 })
 
 module.exports = mongoose.model("user", UserSchema);
