@@ -6,6 +6,7 @@ routes.get("/", async(req, res)=>{
 
     var transporter = nodemailer.createTransport({
         service: 'gmail',
+        host: 'smtp.gmail.com',
         auth: {
           user: 'bhooshanpandre200@gmail.com',
           pass: 'bhooshan2000@'
