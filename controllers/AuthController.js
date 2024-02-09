@@ -16,7 +16,7 @@ routes.post("/", async(req, res)=>{
                 let obj = { _id : result[0]._id };
                 let token = jwt.sign(obj, "the stepping stone");
                 
-                res.send({success : true, token : token});
+                res.send({success : true, token : token, name : result[0].name});
             }else{
                 res.send({success : false, type : 3})
             }
@@ -31,6 +31,27 @@ routes.post("/", async(req, res)=>{
         res.send({ success : false, type : 1 })
     }
 
+})
+
+routes.post("/changepassword", async(req, res)=>{
+    if(req.headers.authorization)
+    {
+        let token = req.headers.authorization;
+        let obj = jwt.decode(token, "the stepping stone")
+        let result = await User.find({ _id : obj._id });
+        if(result[0].password==sha1(req.body.current_password))
+        {   
+            await User.updateMany({ _id : obj._id }, {password : sha1(req.body.new_password)})
+            res.send({success: true})
+        }
+        else{
+            res.send({ success : false })
+        }
+
+    }
+    else{
+        res.send({ success : false })
+    }
 })
 
 module.exports = routes;

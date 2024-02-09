@@ -731,9 +731,9 @@ nav.main-menu li a {
   -o-transition: 0.3s;
   transition: 0.3s;
 }
-.dropdown:hover .dropdown-menu {
+.dropdown:hover .dropdown-menu-new {
   display: block;
-  margin-top: 0; /* remove the gap so it doesn't close */
+  margin-top: 0; 
 }
 
 /* ul.navbar-nav {

@@ -11,7 +11,7 @@ routes.get("/:id", async(req, res)=>{
 })
 
 routes.put("/:id", async(req, res)=>{
-    // { status : 1 }  { status : 0 }
+    // console.log(req.body);return;
     await User.updateMany({ _id : req.params.id }, req.body);
     res.send({ success : true });
 })
